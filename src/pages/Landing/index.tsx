@@ -13,7 +13,7 @@ import { FiArrowRight } from 'react-icons/fi';
 import logoImg from '../../images/logo.svg';
 import bgContentImg from '../../images/landing.svg';
 
-const Home: React.FC = () => {
+const Landing: React.FC = () => {
   return (
     <Container>
       <Content bgImg={bgContentImg}>
@@ -34,4 +34,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default Landing;
