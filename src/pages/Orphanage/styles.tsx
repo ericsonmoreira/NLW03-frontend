@@ -96,6 +96,20 @@ export const OrphanageDetailsContent = styled.div`
     margin-bottom: 8px;
   }
 
+  hr {
+    width: 100%;
+    height: 1px;
+    border: 0;
+    background: #d3e2e6;
+    margin: 64px 0;
+  }
+
+  h2 {
+    font-size: 36px;
+    line-height: 46px;
+    color: #4d6f80;
+  }
+
   p {
     line-height: 28px;
     color: #5c8599;
@@ -123,20 +137,6 @@ export const MapContainer = styled.div`
   .leaflet-container {
     border-bottom: 1px solid #dde3f0;
     border-radius: 20px;
-  }
-
-  hr {
-    width: 100%;
-    height: 1px;
-    border: 0;
-    background: #d3e2e6;
-    margin: 64px 0;
-  }
-
-  h2 {
-    font-size: 36px;
-    line-height: 46px;
-    color: #4d6f80;
   }
 `;
 
