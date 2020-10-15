@@ -39,10 +39,9 @@ export const Footer = styled.footer`
   }
 `;
 
-export const Map = styled.div``;
-
 export const AddOrphanageButton = styled(Link)`
   position: absolute;
+  z-index: 10;
   bottom: 40px;
   right: 40px;
   width: 64px;
