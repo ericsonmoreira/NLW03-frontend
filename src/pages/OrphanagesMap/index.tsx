@@ -57,7 +57,7 @@ const OrphanagesMap: React.FC = () => {
         </Marker>
       </Map>
 
-      <AddOrphanageButton to="/">
+      <AddOrphanageButton to="/orphanage/create">
         <FiPlus size={32} color="#FFF" />
       </AddOrphanageButton>
     </Container>
