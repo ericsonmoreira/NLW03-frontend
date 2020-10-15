@@ -50,7 +50,7 @@ const OrphanagesMap: React.FC = () => {
         <Marker icon={mapIcon} position={[-5.2482906, -38.1303709]}>
           <MapPopup closeButton={false} minWidth={240} maxWidth={240}>
             Lar das meninas
-            <MapPopupButton to="/">
+            <MapPopupButton to="/orphanage/1">
               <FiArrowRight size={20} color="#FFF" />
             </MapPopupButton>
           </MapPopup>
