@@ -26,7 +26,7 @@ const Landing: React.FC = () => {
           <strong>Tabuleiro do norte</strong>
           <span>Ceará</span>
         </City>
-        <EnterAppButton href="">
+        <EnterAppButton to="/app">
           <FiArrowRight size={26} color="rgba(0,0,0, 0.8)" />
         </EnterAppButton>
       </Content>

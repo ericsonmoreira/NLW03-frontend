@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface ContentProps {
@@ -57,7 +58,7 @@ export const City = styled.div`
   }
 `;
 
-export const EnterAppButton = styled.a`
+export const EnterAppButton = styled(Link)`
   position: absolute;
   right: 0;
   bottom: 0;
