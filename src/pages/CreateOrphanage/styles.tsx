@@ -39,6 +39,12 @@ export const CreateOrphanageForm = styled.form`
   fieldset + fieldset {
     margin-top: 80px;
   }
+
+  .leaflet-container {
+    margin-bottom: 40px;
+    border-radius: 20px;
+    border: 1px solid #d3e2e5;
+  }
 `;
 
 export const InputBlock = styled.div`
