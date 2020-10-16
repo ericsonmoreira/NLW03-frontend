@@ -17,13 +17,7 @@ import { Map, Marker, TileLayer } from 'react-leaflet';
 import mapMarkerImg from '../../images/map-marker.svg';
 import { FiPlus, FiArrowRight } from 'react-icons/fi';
 import api from '../../services/api';
-
-interface IOrphanages {
-  id: number;
-  name: string;
-  latitude: number;
-  longitude: number;
-}
+import IOrphanage from '../../entities/IOrphanage';
 
 const mapIcon = Leaflet.icon({
   iconUrl: mapMarkerImg,
@@ -33,7 +27,7 @@ const mapIcon = Leaflet.icon({
 });
 
 const OrphanagesMap: React.FC = () => {
-  const [orphanages, setOrphanages] = useState<IOrphanages[]>([]);
+  const [orphanages, setOrphanages] = useState<IOrphanage[]>([]);
 
   useEffect(() => {
     api.get('/orphanages').then((response) => {
