@@ -1,6 +1,6 @@
 interface IImage {
   id: number;
-  path: string;
+  url: string;
 }
 
 export default IImage;
