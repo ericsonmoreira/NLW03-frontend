@@ -17,8 +17,8 @@ export const Container = styled.div`
 export const Content = styled.main<ContentProps>`
   width: 100%;
   height: 100%;
-  max-height: 680px;
-  max-width: 1100px;
+  max-height: 600px;
+  max-width: 900px;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
