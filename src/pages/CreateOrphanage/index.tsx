@@ -1,6 +1,5 @@
 import React from 'react';
 import { Map, Marker, TileLayer } from 'react-leaflet';
-import Leaflet from 'leaflet';
 
 import {
   Container,
@@ -13,16 +12,9 @@ import {
 } from './styles';
 
 import { FiPlus } from 'react-icons/fi';
+import happyMapIcon from '../../utils/mapIcon';
 
-import mapMarkerImg from '../../images/map-marker.svg';
 import Sidebar from '../../components/Sidebar';
-
-const happyMapIcon = Leaflet.icon({
-  iconUrl: mapMarkerImg,
-  iconSize: [58, 68],
-  iconAnchor: [29, 68],
-  popupAnchor: [0, -60],
-});
 
 const CreateOrphanage: React.FC = () => {
   return (

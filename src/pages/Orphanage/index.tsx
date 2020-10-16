@@ -2,7 +2,7 @@ import React from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { FiClock, FiInfo } from 'react-icons/fi';
 import { Map, Marker, TileLayer } from 'react-leaflet';
-import Leaflet from 'leaflet';
+import Sidebar from '../../components/Sidebar';
 
 import {
   Container,
@@ -17,15 +17,7 @@ import {
   ContactButton,
 } from './styles';
 
-import mapMarkerImg from '../../images/map-marker.svg';
-import Sidebar from '../../components/Sidebar';
-
-const happyMapIcon = Leaflet.icon({
-  iconUrl: mapMarkerImg,
-  iconSize: [58, 68],
-  iconAnchor: [29, 68],
-  popupAnchor: [0, -60],
-});
+import happyMapIcon from '../../utils/mapIcon';
 
 const Orphanage: React.FC = () => {
 
