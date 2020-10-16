@@ -1,3 +1,4 @@
+import { Form } from 'formik';
 import styled from 'styled-components';
 
 interface OptionButtonProps {
@@ -12,7 +13,7 @@ export const Container = styled.div`
   }
 `;
 
-export const CreateOrphanageForm = styled.form`
+export const CreateOrphanageForm = styled(Form)`
   width: 700px;
   margin: 64px auto;
   background: #ffffff;
