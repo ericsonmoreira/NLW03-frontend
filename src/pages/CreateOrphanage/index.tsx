@@ -52,7 +52,7 @@ const CreateOrphanage: React.FC = () => {
               zoom={15}
             >
               <TileLayer
-                url={'https://a.tile.openstreetmap.org/${z}/${x}/${y}.png'}
+                url={'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'}
               />
 
               <Marker

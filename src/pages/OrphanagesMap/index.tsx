@@ -46,7 +46,7 @@ const OrphanagesMap: React.FC = () => {
         zoom={17}
         style={{ width: '100%', height: '100%', zIndex: 5 }}
       >
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        <TileLayer url={'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'} />
         <Marker icon={mapIcon} position={[-5.2482906, -38.1303709]}>
           <MapPopup closeButton={false} minWidth={240} maxWidth={240}>
             Lar das meninas

@@ -109,7 +109,7 @@ const Orphanage: React.FC = () => {
                 doubleClickZoom={false}
               >
                 <TileLayer
-                  url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
+                  url={'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'}
                 />
                 <Marker
                   interactive={false}
@@ -119,7 +119,7 @@ const Orphanage: React.FC = () => {
               </Map>
 
               <footer>
-                <a href="">Ver rotas no Google Maps</a>
+                <a href="/">Ver rotas no Google Maps</a>
               </footer>
             </MapContainer>
 
