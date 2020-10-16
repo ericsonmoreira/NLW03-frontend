@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   Container,
@@ -16,8 +16,14 @@ import { Map, Marker, TileLayer } from 'react-leaflet';
 
 import mapMarkerImg from '../../images/map-marker.svg';
 import { FiPlus, FiArrowRight } from 'react-icons/fi';
+import api from '../../services/api';
 
-import 'leaflet/dist/leaflet.css';
+interface IOrphanages {
+  id: number;
+  name: string;
+  latitude: number;
+  longitude: number;
+}
 
 const mapIcon = Leaflet.icon({
   iconUrl: mapMarkerImg,
@@ -27,6 +33,14 @@ const mapIcon = Leaflet.icon({
 });
 
 const OrphanagesMap: React.FC = () => {
+  const [orphanages, setOrphanages] = useState<IOrphanages[]>([]);
+
+  useEffect(() => {
+    api.get('/orphanages').then((response) => {
+      setOrphanages((old) => [...old, ...response.data]);
+    });
+  }, []);
+
   return (
     <Container>
       <SideBar>
@@ -47,14 +61,21 @@ const OrphanagesMap: React.FC = () => {
         style={{ width: '100%', height: '100%', zIndex: 5 }}
       >
         <TileLayer url={'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'} />
-        <Marker icon={mapIcon} position={[-5.2482906, -38.1303709]}>
-          <MapPopup closeButton={false} minWidth={240} maxWidth={240}>
-            Lar das meninas
-            <MapPopupButton to="/orphanage/1">
-              <FiArrowRight size={20} color="#FFF" />
-            </MapPopupButton>
-          </MapPopup>
-        </Marker>
+
+        {orphanages.map((orphanage) => (
+          <Marker
+            key={orphanage.id}
+            icon={mapIcon}
+            position={[orphanage.latitude, orphanage.longitude]}
+          >
+            <MapPopup closeButton={false} minWidth={240} maxWidth={240}>
+              {orphanage.name}
+              <MapPopupButton to={`/orphanage/${orphanage.id}`}>
+                <FiArrowRight size={20} color="#FFF" />
+              </MapPopupButton>
+            </MapPopup>
+          </Marker>
+        ))}
       </Map>
 
       <AddOrphanageButton to="/orphanage/create">
