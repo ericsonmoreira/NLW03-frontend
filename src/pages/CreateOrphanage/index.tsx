@@ -48,7 +48,6 @@ const initialValues: MyFormValues = {
 };
 
 const CreateOrphanage: React.FC = () => {
-
   const history = useHistory();
 
   async function handleSubmit(values: MyFormValues) {
@@ -89,8 +88,6 @@ const CreateOrphanage: React.FC = () => {
     setFieldValue: Function
   ) {
     if (!event.target.files) return;
-    console.log(Array.from(event.target.files));
-
     // Muito lindo isso aqui
     setFieldValue('images', Array.from(event.target.files));
   }
@@ -203,13 +200,13 @@ const CreateOrphanage: React.FC = () => {
                 </InputBlock>
 
                 <InputBlock>
-                  <label htmlFor="open_on_weekends">Atende fim de semana</label>
+                  <label htmlFor="open_on_week">Atende fim de semana</label>
                   <ButtonSelect>
                     <OptionButton
                       type="button"
                       active={values.open_on_week}
                       onClick={() => {
-                        setFieldValue('open_on_weekends', true);
+                        setFieldValue('open_on_week', true);
                       }}
                     >
                       Sim
@@ -218,7 +215,7 @@ const CreateOrphanage: React.FC = () => {
                       type="button"
                       active={false}
                       onClick={() => {
-                        setFieldValue('open_on_weekends', false);
+                        setFieldValue('open_on_week', false);
                       }}
                     >
                       Não
@@ -227,6 +224,7 @@ const CreateOrphanage: React.FC = () => {
                 </InputBlock>
               </fieldset>
 
+              <pre>{JSON.stringify(values, null, 2)}</pre>
               <ConfirmButton type="submit">Confirmar</ConfirmButton>
             </CreateOrphanageForm>
           )}

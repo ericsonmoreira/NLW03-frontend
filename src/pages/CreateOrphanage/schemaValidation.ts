@@ -5,11 +5,11 @@ const schema = yup.object().shape({
   latitude: yup
     .number()
     .required('Campo obrigatório')
-    .notOneOf([0], 'Latitude não pode ser ${values}'),
+    .notOneOf([0], 'Latitude não pode ser igual a 0'),
   longitude: yup
     .number()
     .required('Campo obrigatório')
-    .notOneOf([0], 'Longitude não pode ser ${values}'),
+    .notOneOf([0], 'Longitude não pode ser igual a 0'),
   about: yup
     .string()
     .required('Campo obrigatório')
