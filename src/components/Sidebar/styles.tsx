@@ -15,6 +15,23 @@ export const Container = styled.aside`
   }
 `;
 
+export const GoHomeButton = styled.button`
+  width: 80px;
+  height: 80px;
+  border: 0;
+  background: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  :hover {
+    background: #17d6eb;
+  }
+`;
+
 export const GoBackButton = styled.button`
   width: 48px;
   height: 48px;

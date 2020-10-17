@@ -1,16 +1,18 @@
 import React from 'react';
-import { Container, GoBackButton } from './styles';
+import { Container, GoBackButton, GoHomeButton } from './styles';
 import { FiArrowLeft } from 'react-icons/fi';
 
 import mapMarkerImg from '../../images/map-marker.svg';
 import { useHistory } from 'react-router-dom';
 
 const Sidebar: React.FC = () => {
-  const { goBack } = useHistory();
+  const { goBack, push } = useHistory();
 
   return (
     <Container>
-      <img src={mapMarkerImg} alt="Happy" />
+      <GoHomeButton type="button" onClick={() => push('/app')}>
+        <img src={mapMarkerImg} alt="Happy" />
+      </GoHomeButton>
 
       <footer>
         <GoBackButton type="button" onClick={goBack}>

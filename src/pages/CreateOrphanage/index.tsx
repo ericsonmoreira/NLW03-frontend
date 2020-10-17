@@ -23,6 +23,7 @@ import { Field, Formik } from 'formik';
 import schema from './schemaValidation';
 import { toast } from 'react-toastify';
 import api from '../../services/api';
+import { useHistory } from 'react-router-dom';
 
 export interface MyFormValues {
   name: string;
@@ -47,6 +48,9 @@ const initialValues: MyFormValues = {
 };
 
 const CreateOrphanage: React.FC = () => {
+
+  const history = useHistory();
+
   async function handleSubmit(values: MyFormValues) {
     // Temos que enviar um FormData pois estamos enviando arquivos para o backend.
     const data = new FormData();
@@ -74,7 +78,9 @@ const CreateOrphanage: React.FC = () => {
 
     await api.post('/orphanages', data);
 
-    // alert(JSON.stringify({ values }, null, 2));
+    // envia para página do app
+    history.push('/app');
+
     toast.success('Orfanato salvo com sucesso');
   }
 
