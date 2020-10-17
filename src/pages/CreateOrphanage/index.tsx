@@ -21,8 +21,10 @@ import Sidebar from '../../components/Sidebar';
 
 import { Field, Formik } from 'formik';
 import schema from './schemaValidation';
+import { toast } from 'react-toastify';
+import api from '../../services/api';
 
-interface MyFormValues {
+export interface MyFormValues {
   name: string;
   latitude: number;
   longitude: number;
@@ -30,9 +32,7 @@ interface MyFormValues {
   instructions: string;
   opening_hours: string;
   open_on_week: boolean;
-  images: Array<{
-    url: string;
-  }>;
+  images: File[];
 }
 
 const initialValues: MyFormValues = {
@@ -43,13 +43,39 @@ const initialValues: MyFormValues = {
   instructions: '',
   opening_hours: '',
   open_on_week: true,
-  images: [],
+  images: new Array<File>(),
 };
 
 const CreateOrphanage: React.FC = () => {
-  function handleSubmit(values: MyFormValues) {
-    console.log();
-    alert(JSON.stringify(values, null, 2));
+  async function handleSubmit(values: MyFormValues) {
+    // Temos que enviar um FormData pois estamos enviando arquivos para o backend.
+    const data = new FormData();
+    const {
+      name,
+      latitude,
+      longitude,
+      about,
+      instructions,
+      opening_hours,
+      open_on_week,
+      images,
+    } = values;
+
+    data.append('name', name);
+    data.append('latitude', String(latitude));
+    data.append('longitude', String(longitude));
+    data.append('about', about);
+    data.append('instructions', instructions);
+    data.append('opening_hours', opening_hours);
+    data.append('open_on_week', String(open_on_week));
+    images.forEach((image) => {
+      data.append('images', image);
+    });
+
+    await api.post('/orphanages', data);
+
+    // alert(JSON.stringify({ values }, null, 2));
+    toast.success('Orfanato salvo com sucesso');
   }
 
   function handleSelectImages(
@@ -60,12 +86,7 @@ const CreateOrphanage: React.FC = () => {
     console.log(Array.from(event.target.files));
 
     // Muito lindo isso aqui
-    setFieldValue(
-      'images',
-      Array.from(event.target.files).map((file) => ({
-        url: URL.createObjectURL(file),
-      }))
-    );
+    setFieldValue('images', Array.from(event.target.files));
   }
 
   return (
@@ -83,7 +104,7 @@ const CreateOrphanage: React.FC = () => {
               <fieldset>
                 <legend>Dados</legend>
                 <Map
-                  center={[-27.2092052, -49.6401092]}
+                  center={[-5.2482906, -38.1303709]}
                   style={{ width: '100%', height: 280 }}
                   zoom={15}
                   onclick={(event: LeafletMouseEvent) => {
@@ -104,6 +125,9 @@ const CreateOrphanage: React.FC = () => {
                     />
                   )}
                 </Map>
+                <FormikErrorMessage component="div" name="latitude" />
+                <FormikErrorMessage component="div" name="longitude" />
+
                 <InputBlock>
                   <label htmlFor="name">Nome</label>
                   <Field id="name" name="name" />
@@ -127,7 +151,11 @@ const CreateOrphanage: React.FC = () => {
                   <ImagesContainer>
                     {/* TODO: colocar as imagens aqui */}
                     {values.images.map((image, index) => (
-                      <img key={index} src={image.url} alt={values.name} />
+                      <img
+                        key={index}
+                        src={URL.createObjectURL(image)}
+                        alt={values.name}
+                      />
                     ))}
 
                     <NewImageButton htmlFor="images[]">
@@ -144,6 +172,7 @@ const CreateOrphanage: React.FC = () => {
                       handleSelectImages(event, setFieldValue)
                     }
                   />
+                  <FormikErrorMessage component="div" name="images" />
                 </InputBlock>
               </fieldset>
 
