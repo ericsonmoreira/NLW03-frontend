@@ -1,4 +1,4 @@
-import { Form } from 'formik';
+import { ErrorMessage, Form } from 'formik';
 import styled from 'styled-components';
 
 interface OptionButtonProps {
@@ -89,13 +89,34 @@ export const InputBlock = styled.div`
   }
 `;
 
-export const NewImageButton = styled.button`
+export const FormikErrorMessage = styled(ErrorMessage)`
+  font-size: 16px;
+  color: #FF669D;
+  line-height: 24px;
+`;
+
+export const NewImageButton = styled.label`
   width: 100%;
-  height: 64px;
+  height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: #f5f8fa;
   border: 1px dashed #96d2f0;
   border-radius: 20px;
   cursor: pointer;
+`;
+
+export const ImagesContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 20px;
+  img {
+    width: 100%;
+    height: 96px;
+    object-fit: cover;
+    border-radius: 20px;
+  }
 `;
 
 export const ButtonSelect = styled.div`

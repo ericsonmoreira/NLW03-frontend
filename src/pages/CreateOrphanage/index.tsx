@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import { LeafletMouseEvent } from 'leaflet';
 
 import {
   Container,
   InputBlock,
+  FormikErrorMessage,
   CreateOrphanageForm,
   NewImageButton,
   ButtonSelect,
   ConfirmButton,
   OptionButton,
+  ImagesContainer,
 } from './styles';
 
 import { FiPlus } from 'react-icons/fi';
@@ -17,7 +19,8 @@ import happyMapIcon from '../../utils/mapIcon';
 
 import Sidebar from '../../components/Sidebar';
 
-import { Field, Formik, FormikHelpers } from 'formik';
+import { Field, Formik } from 'formik';
+import schema from './schemaValidation';
 
 interface MyFormValues {
   name: string;
@@ -27,6 +30,9 @@ interface MyFormValues {
   instructions: string;
   opening_hours: string;
   open_on_week: boolean;
+  images: Array<{
+    url: string;
+  }>;
 }
 
 const initialValues: MyFormValues = {
@@ -37,17 +43,29 @@ const initialValues: MyFormValues = {
   instructions: '',
   opening_hours: '',
   open_on_week: true,
+  images: [],
 };
 
 const CreateOrphanage: React.FC = () => {
-
-  function handleSubmit(
-    values: MyFormValues,
-    actions: FormikHelpers<MyFormValues>
-  ) {
-    console.log({ values, actions });
+  function handleSubmit(values: MyFormValues) {
+    console.log();
     alert(JSON.stringify(values, null, 2));
-    actions.setSubmitting(false);
+  }
+
+  function handleSelectImages(
+    event: ChangeEvent<HTMLInputElement>,
+    setFieldValue: Function
+  ) {
+    if (!event.target.files) return;
+    console.log(Array.from(event.target.files));
+
+    // Muito lindo isso aqui
+    setFieldValue(
+      'images',
+      Array.from(event.target.files).map((file) => ({
+        url: URL.createObjectURL(file),
+      }))
+    );
   }
 
   return (
@@ -55,7 +73,11 @@ const CreateOrphanage: React.FC = () => {
       <Sidebar />
 
       <main>
-        <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+          validationSchema={schema}
+        >
           {({ setFieldValue, values }) => (
             <CreateOrphanageForm>
               <fieldset>
@@ -66,8 +88,8 @@ const CreateOrphanage: React.FC = () => {
                   zoom={15}
                   onclick={(event: LeafletMouseEvent) => {
                     const { lat, lng } = event.latlng;
-                    setFieldValue('latitude', event.latlng.lat);
-                    setFieldValue('longitude', event.latlng.lng);
+                    setFieldValue('latitude', lat);
+                    setFieldValue('longitude', lng);
                   }}
                 >
                   <TileLayer
@@ -85,6 +107,7 @@ const CreateOrphanage: React.FC = () => {
                 <InputBlock>
                   <label htmlFor="name">Nome</label>
                   <Field id="name" name="name" />
+                  <FormikErrorMessage component="div" name="name" />
                 </InputBlock>
                 <InputBlock>
                   <label htmlFor="about">
@@ -96,15 +119,31 @@ const CreateOrphanage: React.FC = () => {
                     as="textarea"
                     maxLength={300}
                   />
+                  <FormikErrorMessage component="div" name="about" />
                 </InputBlock>
                 <InputBlock>
-                  <label htmlFor="images">Fotos</label>
+                  <label htmlFor="images[]">Fotos</label>
 
-                  <div className="uploaded-image"></div>
+                  <ImagesContainer>
+                    {/* TODO: colocar as imagens aqui */}
+                    {values.images.map((image, index) => (
+                      <img key={index} src={image.url} alt={values.name} />
+                    ))}
 
-                  <NewImageButton>
-                    <FiPlus size={24} color="#15b6d6" />
-                  </NewImageButton>
+                    <NewImageButton htmlFor="images[]">
+                      <FiPlus size={24} color="#15b6d6" />
+                    </NewImageButton>
+                  </ImagesContainer>
+
+                  <input
+                    multiple
+                    type="file"
+                    id="images[]"
+                    style={{ display: 'none' }}
+                    onChange={(event) =>
+                      handleSelectImages(event, setFieldValue)
+                    }
+                  />
                 </InputBlock>
               </fieldset>
 
@@ -119,11 +158,13 @@ const CreateOrphanage: React.FC = () => {
                     as="textarea"
                     maxLength={300}
                   />
+                  <FormikErrorMessage component="div" name="about" />
                 </InputBlock>
 
                 <InputBlock>
                   <label htmlFor="opening_hours">Horário das visitas</label>
                   <Field id="opening_hours" name="opening_hours" />
+                  <FormikErrorMessage component="div" name="opening_hours" />
                 </InputBlock>
 
                 <InputBlock>
