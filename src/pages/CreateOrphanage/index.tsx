@@ -85,11 +85,14 @@ const CreateOrphanage: React.FC = () => {
 
   function handleSelectImages(
     event: ChangeEvent<HTMLInputElement>,
+    values: MyFormValues,
     setFieldValue: Function
   ) {
     if (!event.target.files) return;
-    // Muito lindo isso aqui
-    setFieldValue('images', Array.from(event.target.files));
+    setFieldValue('images', [
+      ...Array.from(event.target.files),
+      ...values.images,
+    ]);
   }
 
   return (
@@ -152,7 +155,6 @@ const CreateOrphanage: React.FC = () => {
                   <label htmlFor="images[]">Fotos</label>
 
                   <ImagesContainer>
-                    {/* TODO: colocar as imagens aqui */}
                     {values.images.map((image, index) => (
                       <img
                         key={index}
@@ -172,7 +174,7 @@ const CreateOrphanage: React.FC = () => {
                     id="images[]"
                     style={{ display: 'none' }}
                     onChange={(event) =>
-                      handleSelectImages(event, setFieldValue)
+                      handleSelectImages(event, values, setFieldValue)
                     }
                   />
                   <FormikErrorMessage component="div" name="images" />
@@ -213,7 +215,7 @@ const CreateOrphanage: React.FC = () => {
                     </OptionButton>
                     <OptionButton
                       type="button"
-                      active={false}
+                      active={!values.open_on_week}
                       onClick={() => {
                         setFieldValue('open_on_week', false);
                       }}
@@ -223,8 +225,6 @@ const CreateOrphanage: React.FC = () => {
                   </ButtonSelect>
                 </InputBlock>
               </fieldset>
-
-              <pre>{JSON.stringify(values, null, 2)}</pre>
               <ConfirmButton type="submit">Confirmar</ConfirmButton>
             </CreateOrphanageForm>
           )}
