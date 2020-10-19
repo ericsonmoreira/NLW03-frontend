@@ -12,9 +12,11 @@ import {
   ConfirmButton,
   OptionButton,
   ImagesContainer,
+  ImageWrapper,
+  DeleteImageButton,
 } from './styles';
 
-import { FiPlus } from 'react-icons/fi';
+import { FiPlus, FiX } from 'react-icons/fi';
 import happyMapIcon from '../../utils/mapIcon';
 
 import Sidebar from '../../components/Sidebar';
@@ -95,6 +97,18 @@ const CreateOrphanage: React.FC = () => {
     ]);
   }
 
+  function handleRemoveImageSelected(
+    image: File,
+    values: MyFormValues,
+    setFieldValue: Function
+  ) {
+    const { images } = values;
+    setFieldValue(
+      'images',
+      images.filter((elem) => elem !== image)
+    );
+  }
+
   return (
     <Container>
       <Sidebar />
@@ -156,11 +170,24 @@ const CreateOrphanage: React.FC = () => {
 
                   <ImagesContainer>
                     {values.images.map((image, index) => (
-                      <img
-                        key={index}
-                        src={URL.createObjectURL(image)}
-                        alt={values.name}
-                      />
+                      <ImageWrapper key={index}>
+                        <DeleteImageButton
+                          type="button"
+                          onClick={() =>
+                            handleRemoveImageSelected(
+                              image,
+                              values,
+                              setFieldValue
+                            )
+                          }
+                        >
+                          <FiX size={16} color="#FF669D" />
+                        </DeleteImageButton>
+                        <img
+                          src={URL.createObjectURL(image)}
+                          alt={values.name}
+                        />
+                      </ImageWrapper>
                     ))}
 
                     <NewImageButton htmlFor="images[]">

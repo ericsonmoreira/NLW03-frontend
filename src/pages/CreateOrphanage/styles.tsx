@@ -119,6 +119,29 @@ export const ImagesContainer = styled.div`
   }
 `;
 
+export const ImageWrapper = styled.div`
+  position: relative;
+`;
+
+export const DeleteImageButton = styled.button`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0px;
+  right: 0px;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  transition: background-color 0.2s;
+
+  :hover {
+    background: rgba(0, 0, 0, 0.2);
+  }
+`;
+
 export const ButtonSelect = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
